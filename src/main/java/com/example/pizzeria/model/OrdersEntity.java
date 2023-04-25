@@ -3,6 +3,7 @@ package com.example.pizzeria.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -13,5 +14,12 @@ public class OrdersEntity {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @ManyToMany
+    @JoinTable(name = "order_pizza",
+            joinColumns = @JoinColumn(name = "id_order"),
+            inverseJoinColumns = @JoinColumn(name = "id_pizza")
+    )
+    private List<PizzaEntity> pizzas;
 
 }
