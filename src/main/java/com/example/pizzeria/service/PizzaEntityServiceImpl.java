@@ -1,6 +1,9 @@
 package com.example.pizzeria.service;
 
+import com.example.pizzeria.model.IngreEntity;
 import com.example.pizzeria.model.PizzaEntity;
+import com.example.pizzeria.repository.IngreEntityRepository;
+import com.example.pizzeria.repository.OrdersEntityRepository;
 import com.example.pizzeria.repository.PizzaEntityRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PizzaEntityServiceImpl implements PizzaEntityService {
     private final PizzaEntityRepository repository;
+    private final IngreEntityRepository repositoryIngre;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -71,5 +75,33 @@ public class PizzaEntityServiceImpl implements PizzaEntityService {
         }
 
     }
+
+    @Override
+    public List<IngreEntity> getIngredients(PizzaEntity pizza) {
+        try {
+            pizza = repository.findById(pizza.getId()).orElseThrow();
+            return pizza.getIngres();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getClass().getSimpleName()
+                    + " Error get by id pizza: "
+                    + e.getMessage());
+        }
+    }
+
+    @Override
+    public PizzaEntity addIngredient(Long id, IngreEntity ingredient) {
+        try {
+            PizzaEntity pizza = repository.findById(id).orElseThrow();
+            pizza.getIngres().add(repositoryIngre.findById(ingredient.getId()).orElseThrow());
+            return repository.save(pizza);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getClass().getSimpleName()
+                    + " Error get by id pizza: "
+                    + e.getMessage());
+        }
+    }
+
 
 }

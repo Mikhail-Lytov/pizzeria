@@ -7,7 +7,7 @@ spring:
     allow-circular-references: true
   jpa:
     database: POSTGRESQL
-    show-sql: false
+    show-sql: true
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
