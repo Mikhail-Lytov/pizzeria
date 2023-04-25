@@ -77,9 +77,9 @@ public class PizzaEntityServiceImpl implements PizzaEntityService {
     }
 
     @Override
-    public List<IngreEntity> getIngredients(PizzaEntity pizza) {
+    public List<IngreEntity> getIngredients(Long id) {
         try {
-            pizza = repository.findById(pizza.getId()).orElseThrow();
+            PizzaEntity pizza = repository.findById(id).orElseThrow();
             return pizza.getIngres();
         } catch (Exception e) {
             e.printStackTrace();

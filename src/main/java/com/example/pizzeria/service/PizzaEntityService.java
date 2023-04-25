@@ -18,7 +18,7 @@ public interface PizzaEntityService {
 
      PizzaEntity getById(Long id);
 
-     List<IngreEntity> getIngredients(PizzaEntity pizza);
+     List<IngreEntity> getIngredients(Long id);
 
      PizzaEntity addIngredient(Long id, IngreEntity ingredient);
 }
