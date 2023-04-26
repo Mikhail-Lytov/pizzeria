@@ -98,7 +98,7 @@ public class OrdersEntityServiceImpl implements OrdersEntityService{
             return repositoryOrders.save(orders);
         }catch (Exception e){
             e.printStackTrace();
-            throw  new RuntimeException(e.getClass().getSimpleName() + "Error add pizza to order");
+            throw  new RuntimeException(e.getClass().getSimpleName() + "Error delete pizza to order");
         }
     }
 }
