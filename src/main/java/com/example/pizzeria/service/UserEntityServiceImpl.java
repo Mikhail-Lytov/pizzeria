@@ -1,8 +1,10 @@
 package com.example.pizzeria.service;
 
 import com.example.pizzeria.model.OrdersEntity;
+import com.example.pizzeria.model.RolesEntity;
 import com.example.pizzeria.model.UserEntity;
 import com.example.pizzeria.repository.OrdersEntityRepository;
+import com.example.pizzeria.repository.RolesEntityRepository;
 import com.example.pizzeria.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -17,6 +19,7 @@ public class UserEntityServiceImpl implements UserEntityService{
 
     private final UserEntityRepository repositoryUser;
     private final OrdersEntityRepository repositoryOrder;
+    private final RolesEntityRepository repositoryRole;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -80,6 +83,20 @@ public class UserEntityServiceImpl implements UserEntityService{
         try {
             UserEntity user = repositoryUser.findById(id).orElseThrow();
             user.getOrders().add(repositoryOrder.findById(order.getId()).orElseThrow());
+            return repositoryUser.save(user);
+        }catch (Exception e){
+            throw new RuntimeException(e.getClass().getSimpleName() +
+                    "Errir add order to user" +
+                    e.getMessage()
+            );
+        }
+    }
+
+    @Override
+    public UserEntity addRole(Long id, RolesEntity role) {
+        try {
+            UserEntity user = repositoryUser.findById(id).orElseThrow();
+            user.getRoles().add(repositoryRole.findById(role.getId()).orElseThrow());
             return repositoryUser.save(user);
         }catch (Exception e){
             throw new RuntimeException(e.getClass().getSimpleName() +
