@@ -1,7 +1,6 @@
 package com.example.pizzeria.web.controller;
 
 import com.example.pizzeria.model.OrdersEntity;
-import com.example.pizzeria.model.RolesEntity;
 import com.example.pizzeria.model.UserEntity;
 import com.example.pizzeria.service.UserEntityService;
 import lombok.RequiredArgsConstructor;
@@ -53,19 +52,6 @@ public class UserEntityController {
         return ResponseEntity.ok(service.addOrder(id, order));
     }
 
-    @PatchMapping("/addRole/{id}")
-    public ResponseEntity<UserEntity> addRole(@PathVariable Long id, @RequestBody RolesEntity role){
-        log.info("add role");
-
-        return ResponseEntity.ok(service.addRole(id, role));
-    }
-
-    @PatchMapping("/delete/role/{id}")
-    public ResponseEntity<UserEntity> deleteRoleToUser(@PathVariable Long id, @RequestBody RolesEntity role){
-        log.info("delete role");
-
-        return ResponseEntity.ok(service.deleteRoleToUser(id, role));
-    }
 
     @PatchMapping("/delete/order/{id}")
     public ResponseEntity<UserEntity> deleteOtherToUser(@PathVariable Long id, @RequestBody OrdersEntity order){
