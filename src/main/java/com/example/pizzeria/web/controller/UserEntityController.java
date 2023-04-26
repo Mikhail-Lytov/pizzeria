@@ -59,4 +59,11 @@ public class UserEntityController {
 
         return ResponseEntity.ok(service.addRole(id, role));
     }
+
+    @PatchMapping("/delete/role/{id}")
+    public ResponseEntity<UserEntity> deleteRoleToUser(@PathVariable Long id, @RequestBody RolesEntity role){
+        log.info("delete role");
+
+        return ResponseEntity.ok(service.deleteRoleToUser(id, role));
+    }
 }

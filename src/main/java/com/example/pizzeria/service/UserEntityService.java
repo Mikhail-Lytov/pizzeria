@@ -20,4 +20,6 @@ public interface UserEntityService {
     UserEntity addOrder(Long id, OrdersEntity order);
 
     UserEntity addRole(Long id, RolesEntity role);
+
+    UserEntity deleteRoleToUser(Long id, RolesEntity role);
 }
