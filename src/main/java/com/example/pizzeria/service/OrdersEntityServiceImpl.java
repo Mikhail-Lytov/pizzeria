@@ -90,13 +90,10 @@ public class OrdersEntityServiceImpl implements OrdersEntityService{
     public OrdersEntity deletePizzaToOrder(Long id, PizzaEntity pizza) {
         try {
             OrdersEntity orders = repositoryOrders.findById(id).orElseThrow();
-            if(orders.getPizzas().stream().anyMatch(pizzaEntity -> pizzaEntity.getId() == pizzaEntity.getId())){
+            if(orders.getPizzas().stream().anyMatch(pizzaEntity -> pizzaEntity.getId() == pizza.getId())){
                 orders.getPizzas().remove(repositoryPizza.getById(pizza.getId()));
             }
-            /*orders.getPizzas()
-                    .stream().
-                    filter(pizzaEntity -> pizzaEntity.getId() == pizza.getId())
-                    .forEach(pizzaEntity -> orders.getPizzas().remove(pizzaEntity));*/
+
 
             return repositoryOrders.save(orders);
         }catch (Exception e){
