@@ -25,8 +25,12 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "id_order"))
     private List<OrdersEntity> orders;
 
-
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "address_user",
+            joinColumns = @JoinColumn(name = "id_adress"),
+            inverseJoinColumns = @JoinColumn(name = "id_user")
+    )
+    private List<AddressEntity> address;
 
 
 
