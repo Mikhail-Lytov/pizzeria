@@ -1,7 +1,9 @@
 package com.example.pizzeria.service;
 
 import com.example.pizzeria.model.OrdersEntity;
+import com.example.pizzeria.model.PizzaEntity;
 import com.example.pizzeria.repository.OrdersEntityRepository;
+import com.example.pizzeria.repository.PizzaEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +14,15 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class OrdersEntityServiceImpl implements OrdersEntityService{
-    private final OrdersEntityRepository repository;
+    private final OrdersEntityRepository repositoryOrders;
+    private final PizzaEntityRepository repositoryPizza;
     @Autowired
     private ModelMapper modelMapper;
 
     @Override
     public List<OrdersEntity> get() {
         try {
-            return repository.findAll();
+            return repositoryOrders.findAll();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName()+" Error get list order: "+e.getMessage());
@@ -29,9 +32,9 @@ public class OrdersEntityServiceImpl implements OrdersEntityService{
     @Override
     public OrdersEntity update(OrdersEntity orderUpdate) {
         try {
-            OrdersEntity old = repository.findById(orderUpdate.getId()).orElseThrow(RuntimeException::new);
+            OrdersEntity old = repositoryOrders.findById(orderUpdate.getId()).orElseThrow(RuntimeException::new);
             old = modelMapper.map(orderUpdate, OrdersEntity.class);
-            return repository.saveAndFlush(old);
+            return repositoryOrders.saveAndFlush(old);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName() + " Error update order: " + e.getMessage());
@@ -41,7 +44,7 @@ public class OrdersEntityServiceImpl implements OrdersEntityService{
     @Override
     public void delete(Long id) {
         try {
-            repository.deleteById(id);
+            repositoryOrders.deleteById(id);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName() + " Error delete order: " + e.getMessage());
@@ -51,7 +54,7 @@ public class OrdersEntityServiceImpl implements OrdersEntityService{
     @Override
     public OrdersEntity save(OrdersEntity order) {
         try {
-            return repository.save(order);
+            return repositoryOrders.save(order);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName() + " Error save order: " + e.getMessage());
@@ -61,7 +64,7 @@ public class OrdersEntityServiceImpl implements OrdersEntityService{
     @Override
     public OrdersEntity getById(Long id) {
         try {
-            return repository.findById(id).orElseThrow();
+            return repositoryOrders.findById(id).orElseThrow();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName()
@@ -69,5 +72,17 @@ public class OrdersEntityServiceImpl implements OrdersEntityService{
                     + e.getMessage());
         }
 
+    }
+
+    @Override
+    public OrdersEntity addPizzaToOrder(Long id, PizzaEntity pizza) {
+        try {
+            OrdersEntity orders = repositoryOrders.findById(id).orElseThrow();
+            orders.getPizzas().add(repositoryPizza.findById(pizza.getId()).orElseThrow());
+            return repositoryOrders.save(orders);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw  new RuntimeException(e.getClass().getSimpleName() + "Error add pizza to order");
+        }
     }
 }

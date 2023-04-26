@@ -1,6 +1,7 @@
 package com.example.pizzeria.web.controller;
 
 import com.example.pizzeria.model.OrdersEntity;
+import com.example.pizzeria.model.PizzaEntity;
 import com.example.pizzeria.service.OrdersEntityService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -42,5 +43,12 @@ public class OrdersEntityController {
         log.info("update order");
 
         return ResponseEntity.ok(service.update(order));
+    }
+
+    @PatchMapping("addPizza/{id}")
+    public ResponseEntity<OrdersEntity> addPizzaToOrder(@PathVariable Long id, @RequestBody PizzaEntity pizza){
+        log.info("add pizza to order");
+
+        return ResponseEntity.ok(service.addPizzaToOrder(id, pizza));
     }
 }
