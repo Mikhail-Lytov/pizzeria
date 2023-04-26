@@ -51,4 +51,11 @@ public class OrdersEntityController {
 
         return ResponseEntity.ok(service.addPizzaToOrder(id, pizza));
     }
+
+    @PatchMapping("deletePizza/{id}")
+    public ResponseEntity<OrdersEntity> deletePizzetoOrder(@PathVariable Long id, @RequestBody PizzaEntity pizza){
+        log.info("delete pizza to order");
+
+        return ResponseEntity.ok(service.deletePizzaToOrder(id, pizza));
+    }
 }

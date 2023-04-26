@@ -17,5 +17,7 @@ public interface OrdersEntityService {
     OrdersEntity getById(Long id);
 
     OrdersEntity addPizzaToOrder(Long id, PizzaEntity pizza);
+
+    OrdersEntity deletePizzaToOrder(Long id, PizzaEntity pizza);
 }
 

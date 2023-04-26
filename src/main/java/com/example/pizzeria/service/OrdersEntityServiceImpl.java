@@ -85,4 +85,23 @@ public class OrdersEntityServiceImpl implements OrdersEntityService{
             throw  new RuntimeException(e.getClass().getSimpleName() + "Error add pizza to order");
         }
     }
+
+    @Override
+    public OrdersEntity deletePizzaToOrder(Long id, PizzaEntity pizza) {
+        try {
+            OrdersEntity orders = repositoryOrders.findById(id).orElseThrow();
+            if(orders.getPizzas().stream().anyMatch(pizzaEntity -> pizzaEntity.getId() == pizzaEntity.getId())){
+                orders.getPizzas().remove(repositoryPizza.getById(pizza.getId()));
+            }
+            /*orders.getPizzas()
+                    .stream().
+                    filter(pizzaEntity -> pizzaEntity.getId() == pizza.getId())
+                    .forEach(pizzaEntity -> orders.getPizzas().remove(pizzaEntity));*/
+
+            return repositoryOrders.save(orders);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw  new RuntimeException(e.getClass().getSimpleName() + "Error add pizza to order");
+        }
+    }
 }
