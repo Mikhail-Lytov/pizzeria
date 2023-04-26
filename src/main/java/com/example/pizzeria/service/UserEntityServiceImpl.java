@@ -120,4 +120,20 @@ public class UserEntityServiceImpl implements UserEntityService{
             throw  new RuntimeException(e.getClass().getSimpleName() + "Error delete role from user  ");
         }
     }
+
+    @Override
+    public UserEntity deleteOrderToUser(Long id, OrdersEntity order) {
+        try {
+            UserEntity user = repositoryUser.findById(id).orElseThrow();
+            if(user.getOrders().stream().anyMatch(pizzaEntity -> pizzaEntity.getId() == order.getId())){
+                user.getOrders().remove(repositoryOrder.getById(order.getId()));
+            }
+
+
+            return repositoryUser.save(user);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw  new RuntimeException(e.getClass().getSimpleName() + "Error delete order from user");
+        }
+    }
 }

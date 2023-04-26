@@ -66,4 +66,11 @@ public class UserEntityController {
 
         return ResponseEntity.ok(service.deleteRoleToUser(id, role));
     }
+
+    @PatchMapping("/delete/order/{id}")
+    public ResponseEntity<UserEntity> deleteOtherToUser(@PathVariable Long id, @RequestBody OrdersEntity order){
+        log.info("delete order from user");
+
+        return ResponseEntity.ok(service.deleteOrderToUser(id, order));
+    }
 }
