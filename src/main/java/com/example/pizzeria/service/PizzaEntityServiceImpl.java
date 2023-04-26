@@ -113,7 +113,7 @@ public class PizzaEntityServiceImpl implements PizzaEntityService {
             return repository.save(pizza);
         }catch (Exception e){
             e.printStackTrace();
-            throw  new RuntimeException(e.getClass().getSimpleName() + "Error add pizza to order");
+            throw  new RuntimeException(e.getClass().getSimpleName() + "Error delete pizza to order");
         }
     }
 
