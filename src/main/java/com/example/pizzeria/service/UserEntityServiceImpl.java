@@ -1,6 +1,8 @@
 package com.example.pizzeria.service;
 
+import com.example.pizzeria.model.OrdersEntity;
 import com.example.pizzeria.model.UserEntity;
+import com.example.pizzeria.repository.OrdersEntityRepository;
 import com.example.pizzeria.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -13,14 +15,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserEntityServiceImpl implements UserEntityService{
 
-    private final UserEntityRepository repository;
+    private final UserEntityRepository repositoryUser;
+    private final OrdersEntityRepository repositoryOrder;
     @Autowired
     private ModelMapper modelMapper;
 
     @Override
     public List<UserEntity> get() {
         try {
-            return repository.findAll();
+            return repositoryUser.findAll();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName()+" Error get list user: "+e.getMessage());
@@ -30,9 +33,9 @@ public class UserEntityServiceImpl implements UserEntityService{
     @Override
     public UserEntity update(UserEntity userUpdate) {
         try {
-            UserEntity old = repository.findById(userUpdate.getId()).orElseThrow(RuntimeException::new);
+            UserEntity old = repositoryUser.findById(userUpdate.getId()).orElseThrow(RuntimeException::new);
             old = modelMapper.map(userUpdate, UserEntity.class);
-            return repository.saveAndFlush(old);
+            return repositoryUser.saveAndFlush(old);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName() + " Error update user: " + e.getMessage());
@@ -42,7 +45,7 @@ public class UserEntityServiceImpl implements UserEntityService{
     @Override
     public void delete(Long id) {
         try {
-            repository.deleteById(id);
+            repositoryUser.deleteById(id);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName() + " Error delete user: " + e.getMessage());
@@ -52,7 +55,7 @@ public class UserEntityServiceImpl implements UserEntityService{
     @Override
     public UserEntity save(UserEntity user) {
         try {
-            return repository.save(user);
+            return repositoryUser.save(user);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName() + " Error save user: " + e.getMessage());
@@ -62,7 +65,7 @@ public class UserEntityServiceImpl implements UserEntityService{
     @Override
     public UserEntity getById(Long id) {
         try {
-            return repository.findById(id).orElseThrow();
+            return repositoryUser.findById(id).orElseThrow();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName()
@@ -70,5 +73,19 @@ public class UserEntityServiceImpl implements UserEntityService{
                     + e.getMessage());
         }
 
+    }
+
+    @Override
+    public UserEntity addOrder(Long id, OrdersEntity order) {
+        try {
+            UserEntity user = repositoryUser.findById(id).orElseThrow();
+            user.getOrders().add(repositoryOrder.findById(order.getId()).orElseThrow());
+            return repositoryUser.save(user);
+        }catch (Exception e){
+            throw new RuntimeException(e.getClass().getSimpleName() +
+                    "Errir add order to user" +
+                    e.getMessage()
+            );
+        }
     }
 }

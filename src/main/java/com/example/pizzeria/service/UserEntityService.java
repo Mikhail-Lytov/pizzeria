@@ -1,5 +1,6 @@
 package com.example.pizzeria.service;
 
+import com.example.pizzeria.model.OrdersEntity;
 import com.example.pizzeria.model.UserEntity;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UserEntityService {
     UserEntity save(UserEntity pizza);
 
     UserEntity getById(Long id);
+
+    UserEntity addOrder(Long id, OrdersEntity order);
 }

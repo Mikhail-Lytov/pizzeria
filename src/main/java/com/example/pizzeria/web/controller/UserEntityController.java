@@ -1,5 +1,6 @@
 package com.example.pizzeria.web.controller;
 
+import com.example.pizzeria.model.OrdersEntity;
 import com.example.pizzeria.model.UserEntity;
 import com.example.pizzeria.service.UserEntityService;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +44,11 @@ public class UserEntityController {
         log.info("update user");
 
         return ResponseEntity.ok(service.update(user));
+    }
+    @PatchMapping("/addOrder/{id}")
+    public ResponseEntity<UserEntity> addOrder(@PathVariable Long id, @RequestBody OrdersEntity order){
+        log.info("add order");
+
+        return ResponseEntity.ok(service.addOrder(id, order));
     }
 }
