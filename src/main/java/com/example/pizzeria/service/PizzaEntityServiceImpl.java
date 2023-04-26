@@ -103,5 +103,19 @@ public class PizzaEntityServiceImpl implements PizzaEntityService {
         }
     }
 
+    @Override
+    public PizzaEntity deleteIngreToPizza(Long id, IngreEntity ingre) {
+        try {
+            PizzaEntity pizza = repository.findById(id).orElseThrow();
+            if (pizza.getIngres().stream().anyMatch(ingreEntity -> ingre.getId() == ingreEntity.getId())) {
+                pizza.getIngres().remove(repositoryIngre.findById(ingre.getId()).orElseThrow());
+            }
+            return repository.save(pizza);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw  new RuntimeException(e.getClass().getSimpleName() + "Error add pizza to order");
+        }
+    }
+
 
 }
