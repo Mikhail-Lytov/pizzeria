@@ -1,5 +1,6 @@
 package com.example.pizzeria.service;
 
+import com.example.pizzeria.model.AddressEntity;
 import com.example.pizzeria.model.OrdersEntity;
 import com.example.pizzeria.model.UserEntity;
 
@@ -19,4 +20,6 @@ public interface UserEntityService {
     UserEntity addOrder(Long id, OrdersEntity order);
 
     UserEntity deleteOrderToUser(Long id, OrdersEntity order);
+
+    UserEntity addAdress(Long id, AddressEntity address);
 }

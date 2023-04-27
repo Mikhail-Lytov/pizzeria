@@ -1,7 +1,9 @@
 package com.example.pizzeria.service;
 
+import com.example.pizzeria.model.AddressEntity;
 import com.example.pizzeria.model.OrdersEntity;
 import com.example.pizzeria.model.UserEntity;
+import com.example.pizzeria.repository.AddressEntityRepository;
 import com.example.pizzeria.repository.OrdersEntityRepository;
 import com.example.pizzeria.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ public class UserEntityServiceImpl implements UserEntityService{
 
     private final UserEntityRepository repositoryUser;
     private final OrdersEntityRepository repositoryOrder;
+    private final AddressEntityRepository repositoryAddress;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -103,6 +106,20 @@ public class UserEntityServiceImpl implements UserEntityService{
         }catch (Exception e){
             e.printStackTrace();
             throw  new RuntimeException(e.getClass().getSimpleName() + "Error delete order from user");
+        }
+    }
+
+    @Override
+    public UserEntity addAdress(Long id, AddressEntity address) {
+        try {
+            UserEntity user = repositoryUser.findById(id).orElseThrow();
+            user.getAddress().add(repositoryAddress.findById(address.getId()).orElseThrow());
+            return repositoryUser.saveAndFlush(user);
+        }catch (Exception e){
+            throw new RuntimeException(e.getClass().getSimpleName() +
+                    "Errir add address to user" +
+                    e.getMessage()
+            );
         }
     }
 }

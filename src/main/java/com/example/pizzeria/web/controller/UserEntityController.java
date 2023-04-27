@@ -1,5 +1,6 @@
 package com.example.pizzeria.web.controller;
 
+import com.example.pizzeria.model.AddressEntity;
 import com.example.pizzeria.model.OrdersEntity;
 import com.example.pizzeria.model.UserEntity;
 import com.example.pizzeria.service.UserEntityService;
@@ -58,5 +59,12 @@ public class UserEntityController {
         log.info("delete order from user");
 
         return ResponseEntity.ok(service.deleteOrderToUser(id, order));
+    }
+
+    @PatchMapping("/add/address/{id}")
+    public ResponseEntity<UserEntity> addAddressFromUser(@PathVariable Long id, @RequestBody AddressEntity address){
+        log.info("add address from user");
+
+        return ResponseEntity.ok(service.addAdress(id, address));
     }
 }

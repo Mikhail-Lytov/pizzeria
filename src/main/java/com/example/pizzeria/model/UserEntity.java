@@ -27,7 +27,7 @@ public class UserEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "address_user",
-            joinColumns = @JoinColumn(name = "id_adress"),
+            joinColumns = @JoinColumn(name = "id_address"),
             inverseJoinColumns = @JoinColumn(name = "id_user")
     )
     private List<AddressEntity> address;
