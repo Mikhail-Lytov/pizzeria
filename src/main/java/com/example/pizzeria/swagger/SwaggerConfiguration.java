@@ -18,8 +18,7 @@ public class SwaggerConfiguration {
     }
     Info springDocapiInfo() {
         return new Info()
-                .title("CRM AR Group")
-                .description("CRM Endpoints")
+                .title("Pizzeria")
                 .version("1.0.0");
     }
 }
