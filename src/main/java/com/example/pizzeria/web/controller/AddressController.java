@@ -2,6 +2,7 @@ package com.example.pizzeria.web.controller;
 
 import com.example.pizzeria.model.AddressEntity;
 import com.example.pizzeria.service.AddressEntityService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ public class AddressController {
     private final AddressEntityService service;
 
     @GetMapping("/all")
+    //@Operation() Тут можно документацию на контролеры сделать
     public ResponseEntity<List<AddressEntity>> getAll() {
         log.info("get all address");
         return ResponseEntity.ok(service.get());
