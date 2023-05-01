@@ -18,7 +18,7 @@ public class CommonTaskCreate extends FnpDelegate implements TaskListener {
                 "ingredients", "ingredients",
                 "order", "order",
                 "pizzaId", "pizzaId",
-                "pizza", "pizza",
+                "pizza_list", "pizza_list",
                 "user", "user",
                 "variable", "variable");
     }
