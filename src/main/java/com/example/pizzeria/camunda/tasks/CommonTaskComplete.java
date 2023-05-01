@@ -10,10 +10,13 @@ public class CommonTaskComplete extends FnpDelegate implements TaskListener {
     public void notify(DelegateTask delegateTask) {
 
         mapFromTaskToProcess(delegateTask,
+                "address","address",
+                "ingredients", "ingredients",
+                "order", "order",
                 "pizzaId", "pizzaId",
-                "address", "address",
+                "pizza", "pizza",
                 "user", "user",
-                "ingredients", "ingredients");
+                "variable", "variable");
 
     }
 }

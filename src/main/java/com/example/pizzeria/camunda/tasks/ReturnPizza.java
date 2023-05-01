@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component("ReturnPizza")
 public class ReturnPizza implements JavaDelegate {
     private final PizzaEntityService service;
@@ -20,6 +22,8 @@ public class ReturnPizza implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+        Map<String, Object> variables = delegateExecution.getVariables();
+        System.out.println(variables);
         delegateExecution.setVariable("pizza", service.getById((Long) delegateExecution.getVariable("pizzaId")).getName());
     }
 }

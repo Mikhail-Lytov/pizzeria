@@ -14,10 +14,13 @@ public class CommonTaskCreate extends FnpDelegate implements TaskListener {
 
 
         mapFromProcessToTask(delegateTask,
-                "pizzaId", "pizzaId",
-                "pizza","pizza",
                 "address","address",
-                "ingredients", "ingredients");
+                "ingredients", "ingredients",
+                "order", "order",
+                "pizzaId", "pizzaId",
+                "pizza", "pizza",
+                "user", "user",
+                "variable", "variable");
     }
 
 

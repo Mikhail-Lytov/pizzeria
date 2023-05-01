@@ -70,7 +70,7 @@ public class PizzaEntityServiceImpl implements PizzaEntityService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName()
-                    + " Error get by id:"+ id.toString() + "pizza: "
+                    + " Error get by id: pizza: "
                     + e.getMessage());
         }
 
