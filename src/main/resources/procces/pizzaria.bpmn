@@ -126,13 +126,12 @@
       <bpmn:outgoing>Flow_00jajqv</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:serviceTask id="Activity_1tefteh" name="Создать заказ" camunda:delegateExpression="${CreateOrder}">
-      <bpmn:incoming>Flow_00tmmc7</bpmn:incoming>
+      <bpmn:incoming>Flow_06jkgfe</bpmn:incoming>
       <bpmn:outgoing>Flow_0nph8w7</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:startEvent id="Event_0avkyl8">
-      <bpmn:outgoing>Flow_00tmmc7</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1qo4xww</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_00tmmc7" sourceRef="Event_0avkyl8" targetRef="Activity_1tefteh" />
     <bpmn:exclusiveGateway id="Gateway_0j8tkqu" name="потверждение">
       <bpmn:incoming>Flow_03isdet</bpmn:incoming>
       <bpmn:outgoing>Flow_0sk67bi</bpmn:outgoing>
@@ -146,7 +145,7 @@
       <bpmn:incoming>Flow_1g54d0c</bpmn:incoming>
       <bpmn:outgoing>Flow_03isdet</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_1g54d0c" sourceRef="Gateway_1i26fof" targetRef="Activity_1edvan1">
+    <bpmn:sequenceFlow id="Flow_1g54d0c" name="нет" sourceRef="Gateway_1i26fof" targetRef="Activity_1edvan1">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${action == 'false'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1l6438o" name="&#62;0" sourceRef="Gateway_08205mt" targetRef="Gateway_1i26fof">
@@ -162,6 +161,16 @@
       <bpmn:incoming>Flow_0sk67bi</bpmn:incoming>
       <bpmn:outgoing>Flow_1vc6lnf</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1qo4xww" sourceRef="Event_0avkyl8" targetRef="Activity_12tptlv" />
+    <bpmn:sequenceFlow id="Flow_06jkgfe" sourceRef="Activity_12tptlv" targetRef="Activity_1tefteh" />
+    <bpmn:userTask id="Activity_12tptlv" name="Выбрать заказчика">
+      <bpmn:extensionElements>
+        <camunda:taskListener delegateExpression="${CommonTaskCreate}" event="create" />
+        <camunda:taskListener delegateExpression="${CommonTaskComplete}" event="complete" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1qo4xww</bpmn:incoming>
+      <bpmn:outgoing>Flow_06jkgfe</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0hhydvj">
@@ -289,15 +298,14 @@
         <di:waypoint x="740" y="808" />
         <di:waypoint x="840" y="808" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_00tmmc7_di" bpmnElement="Flow_00tmmc7">
-        <di:waypoint x="248" y="808" />
-        <di:waypoint x="420" y="808" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1g54d0c_di" bpmnElement="Flow_1g54d0c">
         <di:waypoint x="2366" y="808" />
         <di:waypoint x="2438" y="808" />
         <di:waypoint x="2438" y="800" />
         <di:waypoint x="2510" y="800" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2431" y="823" width="18" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1l6438o_di" bpmnElement="Flow_1l6438o">
         <di:waypoint x="2136" y="388" />
@@ -313,6 +321,14 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="3240" y="790" width="61" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qo4xww_di" bpmnElement="Flow_1qo4xww">
+        <di:waypoint x="248" y="808" />
+        <di:waypoint x="270" y="808" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06jkgfe_di" bpmnElement="Flow_06jkgfe">
+        <di:waypoint x="370" y="808" />
+        <di:waypoint x="420" y="808" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Activity_12jjmkb_di" bpmnElement="Activity_12jjmkb">
         <dc:Bounds x="1131" y="628" width="100" height="80" />
@@ -388,6 +404,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0dfrpub_di" bpmnElement="Activity_1al4b4e">
         <dc:Bounds x="3251" y="618" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1aatlow_di" bpmnElement="Activity_12tptlv">
+        <dc:Bounds x="270" y="768" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

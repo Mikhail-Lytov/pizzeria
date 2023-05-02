@@ -22,7 +22,9 @@ public class CreateOrder implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        UserEntity user = serviceUser.getById(2L);
+        UserEntity user = serviceUser.getById(
+                (Long) delegateExecution.getVariable("user")
+        );
         OrdersEntity order = serviceOrders.save(new OrdersEntity());
         user.getOrders().add(order);
         serviceUser.update(user);
