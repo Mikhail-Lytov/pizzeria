@@ -131,6 +131,10 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0qwolt2">
+      <bpmndi:BPMNEdge id="Flow_1khs12v_di" bpmnElement="Flow_1khs12v">
+        <di:waypoint x="305" y="750" />
+        <di:waypoint x="340" y="750" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0d1xgsi_di" bpmnElement="Flow_0d1xgsi">
         <di:waypoint x="2950" y="600" />
         <di:waypoint x="3152" y="600" />
@@ -280,10 +284,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="609" y="665" width="13" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1khs12v_di" bpmnElement="Flow_1khs12v">
-        <di:waypoint x="305" y="750" />
-        <di:waypoint x="340" y="750" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="732" width="36" height="36" />
