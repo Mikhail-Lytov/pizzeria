@@ -1,4 +1,4 @@
-package com.example.pizzeria.camunda.tasks;
+package com.example.pizzeria.camunda.tasks.pizza.order;
 
 import com.example.pizzeria.service.OrdersEntityService;
 import com.example.pizzeria.service.PizzaEntityService;

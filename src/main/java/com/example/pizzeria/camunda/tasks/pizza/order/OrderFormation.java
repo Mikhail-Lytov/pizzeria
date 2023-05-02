@@ -1,4 +1,4 @@
-package com.example.pizzeria.camunda.tasks;
+package com.example.pizzeria.camunda.tasks.pizza.order;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
