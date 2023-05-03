@@ -50,8 +50,13 @@ public class PizzaEntityController {
         return ResponseEntity.ok(service.addIngredient(id, ingredient));
     }
 
-    @GetMapping("/ingredients")
-    public ResponseEntity<List<IngreEntity>> getIngredients(@RequestBody PizzaEntity pizza){
-        return ResponseEntity.ok(service.getIngredients(pizza));
+    @GetMapping("/ingredients/{id}")
+    public ResponseEntity<List<IngreEntity>> getIngredients(@PathVariable Long id){
+        return ResponseEntity.ok(service.getIngredients(id));
+    }
+
+    @PatchMapping("/delete/Ingredient/{id}")
+    public  ResponseEntity<PizzaEntity> deleteIngreToPizza(@PathVariable Long id, @RequestBody IngreEntity ingre){
+        return ResponseEntity.ok(service.deleteIngreToPizza(id, ingre));
     }
 }

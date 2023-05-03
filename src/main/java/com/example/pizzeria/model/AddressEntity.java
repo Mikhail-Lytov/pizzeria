@@ -1,20 +1,22 @@
 package com.example.pizzeria.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
 @Entity
+@Data
 @NoArgsConstructor
-@Table(name = "roles", schema = "public", catalog = "postgres")
-public class RolesEntity {
+@Table(name = "address", schema = "public", catalog = "postgres")
+public class AddressEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
     @Basic
-    @Column(name = "name", nullable = true)
+    @Column(name = "name", nullable = false, length = -1)
     private String name;
+
 
 }

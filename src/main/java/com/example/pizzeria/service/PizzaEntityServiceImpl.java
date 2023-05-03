@@ -70,16 +70,16 @@ public class PizzaEntityServiceImpl implements PizzaEntityService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getClass().getSimpleName()
-                    + " Error get by id:"+ id.toString() + "pizza: "
+                    + " Error get by id: pizza: "
                     + e.getMessage());
         }
 
     }
 
     @Override
-    public List<IngreEntity> getIngredients(PizzaEntity pizza) {
+    public List<IngreEntity> getIngredients(Long id) {
         try {
-            pizza = repository.findById(pizza.getId()).orElseThrow();
+            PizzaEntity pizza = repository.findById(id).orElseThrow();
             return pizza.getIngres();
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,6 +100,20 @@ public class PizzaEntityServiceImpl implements PizzaEntityService {
             throw new RuntimeException(e.getClass().getSimpleName()
                     + " Error get by id pizza: "
                     + e.getMessage());
+        }
+    }
+
+    @Override
+    public PizzaEntity deleteIngreToPizza(Long id, IngreEntity ingre) {
+        try {
+            PizzaEntity pizza = repository.findById(id).orElseThrow();
+            if (pizza.getIngres().stream().anyMatch(ingreEntity -> ingre.getId() == ingreEntity.getId())) {
+                pizza.getIngres().remove(repositoryIngre.findById(ingre.getId()).orElseThrow());
+            }
+            return repository.save(pizza);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw  new RuntimeException(e.getClass().getSimpleName() + "Error delete pizza to order");
         }
     }
 
